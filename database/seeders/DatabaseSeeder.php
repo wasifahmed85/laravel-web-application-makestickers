@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             MaterialAttributeSeeder::class,
             MaterialAttributeValueSeeder::class,
+            TemplateCategorySeeder::class,
 
             StickerCategorySeeder::class,
             StickerTypeSeeder::class,

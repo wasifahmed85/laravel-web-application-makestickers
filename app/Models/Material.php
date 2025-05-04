@@ -6,7 +6,6 @@ use App\Models\BaseModel;
 
 class Material extends BaseModel
 {
-    protected $table = 'materials';
 
     protected $fillable = [
         'name',
@@ -37,5 +36,9 @@ class Material extends BaseModel
     public function scopeInactive($query)
     {
         return $query->where('status', self::STATUS_INACTIVE);
+    }
+    public function stickerTypeMaterial()
+    {
+        return $this->hasMany(StickerTypeMaterial::class);
     }
 }

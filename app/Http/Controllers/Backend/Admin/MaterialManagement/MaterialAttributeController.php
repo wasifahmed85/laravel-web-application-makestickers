@@ -17,13 +17,13 @@ class MaterialAttributeController extends Controller
         $this->middleware('auth:admin');
         
         // Define permissions for each method
-        $this->middleware('permission:admin-list', ['only' => ['index', 'show']]);
-        $this->middleware('permission:admin-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update', 'status']]);
-        $this->middleware('permission:admin-delete', ['only' => ['destroy']]);
-        $this->middleware('permission:admin-trash', ['only' => ['trash', 'restore']]);
-        $this->middleware('permission:admin-restore', ['only' => ['restore']]);
-        $this->middleware('permission:admin-force-delete', ['only' => ['forceDelete']]);
+        $this->middleware('permission:material-attribute-list', ['only' => ['index', 'show']]);
+        $this->middleware('permission:material-attribute-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:material-attribute-edit', ['only' => ['edit', 'update', 'status']]);
+        $this->middleware('permission:material-attribute-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:material-attribute-trash', ['only' => ['trash', 'restore']]);
+        $this->middleware('permission:material-attribute-restore', ['only' => ['restore']]);
+        $this->middleware('permission:material-attribute-force-delete', ['only' => ['forceDelete']]);
     }
 
     /**
@@ -98,8 +98,11 @@ class MaterialAttributeController extends Controller
     public function destroy(string $id)
     {
         $material_attribute = MaterialAttribute::findOrFail(decrypt($id));
+        $material_attribute->update([
+            'deleted_by' => admin()->id
+        ]);
+        
         $material_attribute->delete();
-
         session()->flash('success', 'Material Attribute deleted successfully');
         return redirect()->route('am.material-attribute.index');
     }

@@ -16,13 +16,13 @@ class MaterialController extends Controller
         $this->middleware('auth:admin');
         
         // Define permissions for each method
-        $this->middleware('permission:admin-list', ['only' => ['index', 'show']]);
-        $this->middleware('permission:admin-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update', 'status']]);
-        $this->middleware('permission:admin-delete', ['only' => ['destroy']]);
-        $this->middleware('permission:admin-trash', ['only' => ['trash', 'restore']]);
-        $this->middleware('permission:admin-restore', ['only' => ['restore']]);
-        $this->middleware('permission:admin-force-delete', ['only' => ['forceDelete']]);
+        $this->middleware('permission:material-list', ['only' => ['index', 'show']]);
+        $this->middleware('permission:material-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:material-edit', ['only' => ['edit', 'update', 'status']]);
+        $this->middleware('permission:material-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:material-trash', ['only' => ['trash', 'restore']]);
+        $this->middleware('permission:material-restore', ['only' => ['restore']]);
+        $this->middleware('permission:material-force-delete', ['only' => ['forceDelete']]);
     }
 
     /**
@@ -102,6 +102,10 @@ class MaterialController extends Controller
     public function destroy(string $id)
     {
         $material = Material::findOrFail(decrypt($id));
+        $material->update([
+            'deleted_by' => admin()->id
+        ]);
+        
         $material->delete();
         session()->flash('success', 'Material deleted successfully');
         return redirect()->route('am.material.index');

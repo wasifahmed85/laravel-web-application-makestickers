@@ -20,7 +20,7 @@
                                 <div class="mb-3">
                                     <label for="material_id" class="form-label">Material</label>
                                     <select name="material_id" class="form-control" id="material_id">
-                                        <option value="{{ $material_attribute_value->material_id }}" selected hidden>{{ $material_attribute_value->material->name }}</option>
+                                        <option value="{{ $material_attribute_value->material_id }}" selected hidden>{{ optional($material_attribute_value->material)->name }}</option>
                                         @foreach ($materials as $material)
                                             <option value="{{ $material->id }}" {{ old('material_id') == $material->id ? 'selected' : '' }}>{{ $material->name }}</option>
                                         @endforeach
@@ -36,7 +36,7 @@
                                 <div class="mb-3">
                                     <label for="material_attribute_id" class="form-label">Material Attribute</label>
                                     <select name="material_attribute_id" class="form-control" id="material_attribute_id">
-                                        <option value="{{ $material_attribute_value->material_attribute_id }}" selected hidden>{{ $material_attribute_value->materialAttribute->name }}</option>
+                                        <option value="{{ $material_attribute_value->material_attribute_id }}" selected hidden>{{ optional($material_attribute_value->materialAttribute)->name }}</option>
                                         @foreach ($material_attributes as $material_attribute)
                                             <option value="{{ $material_attribute->id }}" {{ old('material_attribute_id') == $material_attribute->id ? 'selected' : '' }}>{{ $material_attribute->name}}</option>
                                         @endforeach

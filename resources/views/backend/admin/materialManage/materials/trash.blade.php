@@ -21,8 +21,8 @@
                                     <th>{{ __('Icon') }}</th>
                                     <th>{{ __('Price') }}</th>
                                     <th>{{ __('Status') }}</th>
-                                    <th>{{ __('Created At') }}</th>
-                                    <th>{{ __('Created By') }}</th>
+                                    <th>{{ __('Deleted At') }}</th>
+                                    <th>{{ __('Deleted By') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>

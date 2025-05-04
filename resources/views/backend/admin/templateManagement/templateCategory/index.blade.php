@@ -1,14 +1,14 @@
-@extends('backend.admin.layouts.app', ['page_slug' => 'material_attribute_value'])
-@section('title', 'Material Attribute Value Management')
+@extends('backend.admin.layouts.app', ['page_slug' => 'template_category'])
+@section('title', 'Tempalate Category Management')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title">Material Attribute Value Management</h4>
+                    <h4 class="card-title">Tempalate Category Management</h4>
                     <div>
-                        <a href="{{ route('am.material-attribute-value.trash') }}" class="btn btn-info">Trash</a>
-                        <a href="{{ route('am.material-attribute-value.create') }}" class="btn btn-primary">Add New</a>
+                        <a href="{{ route('am.template-category.trash') }}" class="btn btn-info">Trash</a>
+                        <a href="{{ route('am.template-category.create') }}" class="btn btn-primary">Add New</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -17,9 +17,8 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>{{ __('#') }}</th>
-                                    <th>{{ __('Material') }}</th>
-                                    <th>{{ __('Material Attribute') }}</th>
-                                    <th>{{ __('Value') }}</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Slug') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Created At') }}</th>
                                     <th>{{ __('Created By') }}</th>
@@ -27,19 +26,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($material_attribute_values as $material_attribute_value)
+                                @forelse ($templateCategories as $templateCategory)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ optional($material_attribute_value->material)->name }}</td>    
-                                        <td>{{ optional($material_attribute_value->materialAttribute)->name }}</td>
-                                        <td>{{ $material_attribute_value->value }}</td>
+                                        <td>{{ $templateCategory->name }}</td>
+                                        <td>{{ $templateCategory->slug }}</td>
                                         <td>
-                                            <span class="badge badge-{{ $material_attribute_value->status_bg }}">
-                                                {{ $material_attribute_value->status_text }}
+                                            <span class="badge badge-{{ $templateCategory->status_bg }}">
+                                                {{ $templateCategory->status_text }}
                                             </span>
                                         </td>
-                                        <td>{{ timeFormat($material_attribute_value->created_at) }}</td>
-                                        <td>{{ $material_attribute_value->created_by_name }}</td>
+                                        <td>{{ timeFormat($templateCategory->created_at) }}</td>
+                                        <td>{{ $templateCategory->created_by_name }}</td>
 
                                         <td>
                                             <div
@@ -55,13 +53,13 @@
                                                         aria-labelledby="dropdownMenuButton1">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.material-attribute-value.show', encrypt($material_attribute_value->id)) }}">
+                                                                href="{{ route('am.template-category.show', encrypt($templateCategory->id)) }}">
                                                                 {{ __('Details') }}
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.material-attribute-value.edit', encrypt($material_attribute_value->id)) }}">
+                                                                href="{{ route('am.template-category.edit', encrypt($templateCategory->id)) }}">
                                                                 {{ __('Edit') }}
                                                             </a>
                                                         </li>
@@ -72,9 +70,9 @@
                                                                 {{ __('Status') }}
                                                             </a>
                                                             <ul class="dropdown-menu" aria-labelledby="status">
-                                                                @foreach ($material_attribute_value->getStatusBtnText($material_attribute_value->status) as $status)
+                                                                @foreach ($templateCategory->getStatusBtnText($templateCategory->status) as $status)
                                                                     <li class="dropdown-item">
-                                                                        <a href="{{ route('am.material-attribute-value.status', [encrypt($material_attribute_value->id), encrypt(array_search($status['text'], $material_attribute_value->getStatus()))]) }}"
+                                                                        <a href="{{ route('am.template-category.status', [encrypt($templateCategory->id), encrypt(array_search($status['text'], $templateCategory->getStatus()))]) }}"
                                                                             class="text-{{ $status['class'] }}">
                                                                             {{ $status['text'] }}
                                                                         </a>
@@ -84,12 +82,12 @@
                                                         </li>
                                                         <li>
                                                             <a title="Delete" href="javascript:void(0)"
-                                                                onclick="confirmDelete(() => document.getElementById('delete-form-{{ $material_attribute_value->id }}').submit());"
+                                                                onclick="confirmDelete(() => document.getElementById('delete-form-{{ $templateCategory->id }}').submit());"
                                                                 class="dropdown-item text-danger" data-id="">
                                                                 {{ __('Delete') }}
                                                             </a>
-                                                            <form id="delete-form-{{ $material_attribute_value->id }}"
-                                                                action="{{ route('am.material-attribute-value.destroy', encrypt($material_attribute_value->id)) }}"
+                                                            <form id="delete-form-{{ $templateCategory->id }}"
+                                                                action="{{ route('am.template-category.destroy', encrypt($templateCategory->id)) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')

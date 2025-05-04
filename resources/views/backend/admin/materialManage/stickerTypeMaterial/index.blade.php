@@ -1,44 +1,37 @@
-@extends('backend.admin.layouts.app', ['page_slug' => 'material_attribute_value'])
-@section('title', 'Material Attribute Value Restore')
+@extends('backend.admin.layouts.app', ['page_slug' => 'sticker_type_material'])
+@section('title', 'Sticker Type Material Management')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title">Material Attribute Value Restore</h4>
+                    <h4 class="card-title">Sticker Type Material Management</h4>
                     <div>
-                        <a href="{{ route('am.material-attribute.index') }}" class="btn btn-primary">Back</a>
+                        <a href="{{ route('am.sticker-type-material.trash') }}" class="btn btn-info">Trash</a>
+                        <a href="{{ route('am.sticker-type-material.create') }}" class="btn btn-primary">Add New</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive overflow-visible">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="datatable">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>{{ __('#') }}</th>
+                                    <th>{{ __('Sticker Type') }}</th>
                                     <th>{{ __('Material') }}</th>
-                                    <th>{{ __('Material Attribute') }}</th>
-                                    <th>{{ __('Value') }}</th>
-                                    <th>{{ __('Status') }}</th>
-                                    <th>{{ __('Deleted At') }}</th>
-                                    <th>{{ __('Deleted By') }}</th>
+                                    <th>{{ __('Created At') }}</th>
+                                    <th>{{ __('Created By') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($material_attribute_values as $material_attribute_value)
+                                @forelse ($sticker_type_materials as $sticker_type_material)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $material_attribute_value->material->name }}</td>    
-                                        <td>{{ $material_attribute_value->materialAttribute->name }}</td>
-                                        <td>{{ $material_attribute_value->value }}</td>
-                                        <td>
-                                            <span class="badge badge-{{ $material_attribute_value->status_bg }}">
-                                                {{ $material_attribute_value->status_text }}
-                                            </span>
-                                        </td>
-                                        <td>{{ timeFormat($material_attribute_value->deleted_at) }}</td>
-                                        <td>{{ $material_attribute_value->deleted_by_name }}</td>
+                                        <td>{{ $sticker_type_material->stickerType->name }}</td>
+                                        <td>{{ $sticker_type_material->material->name }}</td>
+                                        <td>{{ timeFormat($sticker_type_material->created_at) }}</td>
+                                        <td>{{ $sticker_type_material->created_by_name }}</td>
 
                                         <td>
                                             <div
@@ -54,16 +47,28 @@
                                                         aria-labelledby="dropdownMenuButton1">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.material-attribute-value.restore', encrypt($material_attribute_value->id)) }}">
-                                                                {{ __('Restore') }}
+                                                                href="{{ route('am.sticker-type-material.show', encrypt($sticker_type_material->id)) }}">
+                                                                {{ __('Details') }}
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a title="Delete" class="dropdown-item text-danger"
-                                                                href="javascript:void(0)" onclick="confirmPermanentDelete('{{ route('am.material-attribute-value.force-delete', encrypt($material_attribute_value->id)) }}')">
-                                                                {{ __('Permanently Delete') }}
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('am.sticker-type-material.edit', encrypt($sticker_type_material->id)) }}">
+                                                                {{ __('Edit') }}
                                                             </a>
-
+                                                        </li>
+                                                        <li>
+                                                            <a title="Delete" href="javascript:void(0)"
+                                                                onclick="confirmDelete(() => document.getElementById('delete-form-{{ $sticker_type_material->id }}').submit());"
+                                                                class="dropdown-item text-danger" data-id="">
+                                                                {{ __('Delete') }}
+                                                            </a>
+                                                            <form id="delete-form-{{ $sticker_type_material->id }}"
+                                                                action="{{ route('am.sticker-type-material.destroy', encrypt($sticker_type_material->id)) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
                                                         </li>
                                                     </ul>
                                                 </div>

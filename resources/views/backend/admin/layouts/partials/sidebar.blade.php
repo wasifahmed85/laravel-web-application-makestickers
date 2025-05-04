@@ -67,17 +67,14 @@
 
 
                 {{-- Material Management --}}
-                <li class="nav-item  @if (isset($page_slug) &&
-                        ($page_slug == 'material' || $page_slug == 'material_attribute' || $page_slug == 'material_attribute_value')) active submenu @endif">
+                <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'material' || $page_slug == 'material_attribute' || $page_slug == 'material_attribute_value' || $page_slug == 'sticker_type_material')) active submenu @endif">
                     <a data-bs-toggle="collapse" href="#dropdown2"
-                        @if (isset($page_slug) &&
-                                ($page_slug == 'material' || $page_slug == 'material_attribute' || $page_slug == 'material_attribute_value')) aria-expanded="true" @endif>
+                        @if (isset($page_slug) && ($page_slug == 'material' || $page_slug == 'material_attribute' || $page_slug == 'material_attribute_value'|| $page_slug == 'sticker_type_material')) aria-expanded="true" @endif>
                         <i class="icon-people"></i>
                         <p>{{ __('Material Management') }}</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse @if (isset($page_slug) &&
-                            ($page_slug == 'material' || $page_slug == 'material_attribute' || $page_slug == 'material_attribute_value')) show @endif" id="dropdown2">
+                    <div class="collapse @if (isset($page_slug) && ($page_slug == 'material' || $page_slug == 'material_attribute' || $page_slug == 'material_attribute_value' || $page_slug == 'sticker_type_material')) show @endif" id="dropdown2">
                         <ul class="nav nav-collapse">
                             <li class="@if (isset($page_slug) && $page_slug == 'material') active @endif">
                                 <a href="{{ route('am.material.index') }}">
@@ -94,10 +91,15 @@
                                     <span class="sub-item">{{ __('Material Attribute Value') }}</span>
                                 </a>
                             </li>
+                            <li class="@if (isset($page_slug) && $page_slug == 'sticker_type_material') active @endif">
+                                <a href="{{ route('am.sticker-type-material.index') }}">
+                                    <span class="sub-item">{{ __('Sticker Type Material') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
-                {{-- Dropdown --}}
+                {{-- Sticker Management --}}
                 <li class="nav-item  @if (isset($page_slug) &&
                         ($page_slug == 'stickerCategory' ||
                             $page_slug == 'stickerType' ||
@@ -145,6 +147,25 @@
                             <li class="@if (isset($page_slug) && $page_slug == 'quantityTier') active @endif">
                                 <a href="{{ route('am.quantity-tier.index') }}">
                                     <span class="sub-item">{{ __('Quantity Tier') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- Tempalate Management --}}
+                <li class="nav-item  @if (isset($page_slug) && ($page_slug == 'template_category')) active submenu @endif">
+                    <a data-bs-toggle="collapse" href="#dropdown4"
+                        @if (isset($page_slug) && ($page_slug == 'template_category' )) aria-expanded="true" @endif>
+                        <i class="icon-people"></i>
+                        <p>{{ __('Template Management') }}</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @if (isset($page_slug) && ($page_slug == 'template_category' )) show @endif" id="dropdown4">
+                        <ul class="nav nav-collapse">
+                            <li class="@if (isset($page_slug) && $page_slug == 'template_category') active @endif">
+                                <a href="{{ route('am.template-category.index') }}">
+                                    <span class="sub-item">{{ __('Template Category') }}</span>
                                 </a>
                             </li>
                         </ul>

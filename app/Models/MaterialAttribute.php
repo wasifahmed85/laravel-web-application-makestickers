@@ -6,7 +6,6 @@ use App\Models\BaseModel;
 
 class MaterialAttribute extends BaseModel
 {
-    protected $table = 'material_attributes';
 
     protected $fillable = [
         'name',

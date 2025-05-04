@@ -35,6 +35,25 @@ class StickerType extends BaseModel
         return $this->belongsTo(StickerCategory::class, 'category_id');
     }
 
+    // Relationship with StickerTypeMaterial
+    public function materials()
+    {
+        return $this->hasMany(StickerTypeMaterial::class, 'sticker_type_id');
+    }
+    public function stickerTypeMaterials()
+    {
+        return $this->hasMany(StickerTypeMaterial::class, 'sticker_type_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', self::STATUS_INACTIVE);
+    }
     // Relationship with StickerTypeShape
     public function stickerTypeShapes()
     {

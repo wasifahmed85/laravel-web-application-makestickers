@@ -1,13 +1,13 @@
-@extends('backend.admin.layouts.app', ['page_slug' => 'material_attribute_value'])
-@section('title', 'Material Attribute Value Restore')
+@extends('backend.admin.layouts.app', ['page_slug' => 'template_category'])
+@section('title', 'Tempalate Category Restore')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title">Material Attribute Value Restore</h4>
+                    <h4 class="card-title">Tempalate Category Restore</h4>
                     <div>
-                        <a href="{{ route('am.material-attribute.index') }}" class="btn btn-primary">Back</a>
+                        <a href="{{ route('am.template-category.index') }}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -16,9 +16,8 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>{{ __('#') }}</th>
-                                    <th>{{ __('Material') }}</th>
-                                    <th>{{ __('Material Attribute') }}</th>
-                                    <th>{{ __('Value') }}</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Slug') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Deleted At') }}</th>
                                     <th>{{ __('Deleted By') }}</th>
@@ -26,19 +25,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($material_attribute_values as $material_attribute_value)
+                                @forelse ($template_categories as $template_category)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $material_attribute_value->material->name }}</td>    
-                                        <td>{{ $material_attribute_value->materialAttribute->name }}</td>
-                                        <td>{{ $material_attribute_value->value }}</td>
+                                        <td>{{ $template_category->name }}</td>
+                                        <td>{{ $template_category->slug }}</td>
                                         <td>
-                                            <span class="badge badge-{{ $material_attribute_value->status_bg }}">
-                                                {{ $material_attribute_value->status_text }}
+                                            <span class="badge badge-{{ $template_category->status_bg }}">
+                                                {{ $template_category->status_text }}
                                             </span>
                                         </td>
-                                        <td>{{ timeFormat($material_attribute_value->deleted_at) }}</td>
-                                        <td>{{ $material_attribute_value->deleted_by_name }}</td>
+                                        <td>{{ timeFormat($template_category->deleted_at) }}</td>
+                                        <td>{{ $template_category->deleted_by_name }}</td>
 
                                         <td>
                                             <div
@@ -54,13 +52,13 @@
                                                         aria-labelledby="dropdownMenuButton1">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('am.material-attribute-value.restore', encrypt($material_attribute_value->id)) }}">
+                                                                href="{{ route('am.template-category.restore', encrypt($template_category->id)) }}">
                                                                 {{ __('Restore') }}
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a title="Delete" class="dropdown-item text-danger"
-                                                                href="javascript:void(0)" onclick="confirmPermanentDelete('{{ route('am.material-attribute-value.force-delete', encrypt($material_attribute_value->id)) }}')">
+                                                                href="javascript:void(0)" onclick="confirmPermanentDelete('{{ route('am.template-category.force-delete', encrypt($template_category->id)) }}')">
                                                                 {{ __('Permanently Delete') }}
                                                             </a>
 
